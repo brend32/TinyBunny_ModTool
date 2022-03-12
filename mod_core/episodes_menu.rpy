@@ -54,7 +54,7 @@ screen episode(episode):
                     xoffset -10
                 at filepic_but
                 xsize 230
-                action [ Stop("music"), Jump(episode.start_label) ]
+                action [ Stop("music"), Start(episode.start_label) ]
 
 screen mod_episodes():
     style_prefix "pref"
