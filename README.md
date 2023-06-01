@@ -1,6 +1,8 @@
 # TinyBunny ModTool
  Инструмент для управления модификациями
  
+# Версия 1.1 для Эпизода 4
+ 
 ## Установка
 1. Скачать архив
 2. Распаковать в папку game
@@ -52,23 +54,28 @@ Mod.episodes.add(ModEpisode("Антон и Пельмени", "_BrenD_", "anton_
 ## Добавление инструмента
 Функция:
 ```python
-Mod.tools.register(ModTool(activate, deactivate, id, name, author, version, icon, author_link = None))
+Mod.tools.register(ModTool(activate, deactivate, id, name, author, version, icon, author_link = None, label_callback = None))
 ```
 > `activate` - вызывается, когда нужно включить инструмент
 > 
 > `deactivate` - вызывается, когда нужно выключить инструмент
 > 
 > `id` - имя папки мода
+>
+> `label_callback` - вызывается при смене сцены движком RenPy
 
 Пример:
 ```python
 def flags_inspector_activate():
-    # Somthing for tool activation 
+    # Something for tool activation 
 
 def flags_inspector_deactivate():
-    # Somthing for tool deactivation 
+    # Something for tool deactivation 
 
-Mod.tools.register(ModTool(flags_inspector_activate, flags_inspector_deactivate, "flags_inspector", "Flags inspector", "_BrenD_", "1.0", "mod/flags_inspector/icon.png", "https://www.youtube.com/channel/UCATCV8pfte6-lyUy0sjGXUQ"))
+def flags_inspector_label_callback(label, context): 
+    # Something when label changes
+
+Mod.tools.register(ModTool(flags_inspector_activate, flags_inspector_deactivate, "flags_inspector", "Flags inspector", "_BrenD_", "1.0", "mod/flags_inspector/icon.png", "https://www.youtube.com/channel/UCATCV8pfte6-lyUy0sjGXUQ", flags_inspector_label_callback))
 ```
 
 ## Примеры проектов
