@@ -11,6 +11,7 @@ init -510 python:
                 [ "Выход", Quit(confirm=False) ],
             ]
             self.developer = False
+            self.version = "1.1";
 
         def insert_menu_button(self, index, name, action):
             self.menu_buttons.insert(index, [name, action])

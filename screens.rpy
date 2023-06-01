@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 init -1 style default:
     properties gui.text_properties()
     language gui.language
@@ -288,6 +298,7 @@ init -501 screen quick_menu():
             action Return()
         textbutton _("Сохранить"):
             action ShowMenu("save")
+            sensitive is_save_allowed
         textbutton _("Загрузить"):
             action ShowMenu("load")
         textbutton _("Настройки"):
@@ -310,6 +321,7 @@ init -501 screen quick_menu():
             text _("Сохранить")
             at mm_but
             action ShowMenu("save")
+            sensitive is_save_allowed
         button:
             background "interface/main_meny/plaska.png"
             text _("Загрузить")
@@ -394,7 +406,9 @@ init python:
     config.developer = Mod.developer
 ##############################################################################
 
+
 init -501 screen main_menu():
+
     style_prefix "main_menu" tag menu
 
     add gui.main_menu_background
@@ -427,17 +441,17 @@ init -501 screen main_menu():
     $ config.developer = Mod.developer
     $ Mod.tools.init()
 
-    if Mod.mod_menu.visible:
-        text _("Мод"):
-            size 30
-            xalign 0.57
-            yalign 0.22
-            color "#fff"
-            at mm_elements
+    text _("Mod Tool [Mod.version]"):
+        size 40
+        xalign 0.57
+        yalign 0.22
+        color "#fff"
+        at mm_elements
     
 ##############################################################################
 
     hbox:
+
         xpos 80
         ypos 100
         button:
@@ -459,6 +473,7 @@ init -501 screen main_menu():
             at mm_but_lang
         at mm_elements
     hbox:
+
         xpos 180
         ypos 200
         button:
@@ -480,6 +495,7 @@ init -501 screen main_menu():
             at mm_but_lang
         at mm_elements
     hbox:
+
         xpos 80
         ypos 300
         button:
@@ -494,10 +510,55 @@ init -501 screen main_menu():
             action Language("chinese")
             at mm_but_lang
         at mm_elements
+    hbox:
+
+        xpos 180
+        ypos 400
+        button:
+            xsize 103
+            ysize 192
+            background "interface/main_meny/lapka_02.png"
+            if preferences.language != "italiano":
+                hover_sound "sounds/menu/menu-button-select-3.ogg"
+            else:
+                hover_sound None
+            activate_sound "sounds/menu/language-sellect-1.ogg"
+            action Language("italiano")
+            text "ITA":
+                xpos 35
+                ypos 105
+                font "font/razor_k.ttf"
+                color "000000"
+                size 40
+            at mm_but_lang
+        at mm_elements
+    hbox:
+
+        xpos 80
+        ypos 500
+        button:
+            xsize 103
+            ysize 192
+            background "interface/main_meny/lapka_01.png"
+            if preferences.language != "turkish":
+                hover_sound "sounds/menu/menu-button-select-3.ogg"
+            else:
+                hover_sound None
+            activate_sound "sounds/menu/language-sellect-1.ogg"
+            action Language("turkish")
+            text "TÜR":
+                xalign .5
+                xoffset 5
+                ypos 105
+                font "font/razor_k.ttf"
+                color "000000"
+                size 40
+            at mm_but_lang
+        at mm_elements
+
     vbox:
-        xalign 0.44
+        xalign 0.47
         yalign 0.4
-        spacing 10
 ##############################################################################
 #                        Изменнёный участок                                  #
 ##############################################################################
@@ -544,227 +605,289 @@ init -501 screen devolver_menu():
                 color "#FFFFFF"
                 font "font/SaikonoFont.ttf"
 
-        vbox:
-            xalign 0.0
-            yalign 0.9
-            vbox:
-                text "Альтернативные языки":
-                    size 20
-                    color "#FFFFFF"
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Арабский" size 20
-                    action Language("arabic")
-
-            button:
-                background "#FFFFFF20"
-                hover_background "#FFFFFF40"
-                ysize 30
-                text "ГУСИ!" size 20
-                action Start("start_goosehunt")
-        vbox:
+        hbox:
             xalign 1.0
             yalign 1.0
             vbox:
-                text "Утилиты":
-                    size 20
-                    color "#FFFFFF"
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "ImageDissolve" size 20
-                    action [Stop('music'), Start('image_dissolve_test')]
+                vbox:
+                    text "1 день":
+                        size 20
+                        color "#FFFFFF"
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Кухня с запиской" size 20
+                        action [Stop('music'), Start('bunny_hall_day1_prepare')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Варежка висит" size 20
+                        action [Stop('music'), Start('main_choose2')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Репортаж в комнате Оли" size 20
+                        action [Stop('music'), Start('bunny_day1_olya_room')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Камера медленно плыла" size 20
+                        action [Stop('music'), Start('staruha1')]
 
-                text "1 день":
-                    size 20
-                    color "#FFFFFF"
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Кухня с запиской" size 20
-                    action [Stop('music'), Start('bunny_hall_day1_prepare')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Варежка висит" size 20
-                    action [Stop('music'), Start('main_choose2')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Репортаж в комнате Оли" size 20
-                    action [Stop('music'), Start('bunny_day1_olya_room')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Камера медленно плыла" size 20
-                    action [Stop('music'), Start('staruha1')]
+                vbox:
+                    text "2 день":
+                        size 20
+                        color "#FFFFFF"
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Пробуждение" size 20
+                        action [Stop('music'), Start('day_2')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Конфета Лисы" size 20
+                        action [Stop('music'), Start('dev_night_meet_fox')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Территория школы" size 20
+                        action [Stop('music'), Start('bunny_school_night1')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Вход в класс" size 20
+                        action [Stop('music'), Start('bunny2_school_classroom1')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Бьeм Семeна" size 20
+                        action [Stop('music'), Stop('sound'), Start('bunny_day2_semen')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Полина или Лиса" size 20
+                        action [Stop('music'), Stop('sound'), Start('bunny_day2_polina_or_fox')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Встреча с гопниками" size 20
+                        action [Stop('music'), Stop('sound'), Start('bunny_day2_gop_stop')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "На**й или Маска" size 20
+                        action [Stop('music'), Stop('sound'), Start('bunny_day2_mask_dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Счастливая семья" size 20
+                        action [Stop('music'), Stop('sound'), Start('bunny2_happy_family_nightmare')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Гараж" size 20
+                        action [Stop('music'), Stop('sound'), Start('bunny2_fox_garage_dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Ночь в комнате" size 20
+                        action [Stop('music'), Stop('sound'), Start('bunny2_night_room_anton_table')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Кошмар с Катей" size 20
+                        action [Stop('music'), Stop('sound'), Start('day2_nightmare')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Финал дня" size 20
+                        action [Stop('music'), Stop('sound'), Start('day_2_f')]
+                vbox:
+                    text "3 день":
+                        size 20
+                        color "#FFFFFF"
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "> НАЧАЛО <" size 20
+                        action [Stop('music'), Start('d3_0')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Неделю спустя" size 20
+                        action [Stop('music'), Start('dev_day3_week')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Анкета" size 20
+                        action [Stop('music'), Start('dev_day3_anketa')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Встреча в углу" size 20
+                        action [Stop('music'), Start('dev_day3_cornermeet')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Общение с сестрой" size 20
+                        action [Stop('music'), Start('dev_d3_olyatalk')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Денди" size 20
+                        action [Stop('music'), Start('day3_goosehunt')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Звонок Полины" size 20
+                        action [Stop('music'), Start('dev_d3_polinacall')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Ночь с конфетами" size 20
+                        action [Stop('music'), Start('dev_bunny3_candyjumps')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Суефа" size 20
+                        action [Stop('music'), Start('dev_suefa')]
+
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Папка" size 20
+                        action [Stop('music'), Start('minigame_case_start')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Концовка" size 20
+                        action [Stop('music'), Start('dev_day3_end_titr')]
 
             vbox:
-                text "2 день":
-                    size 20
-                    color "#FFFFFF"
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Пробуждение" size 20
-                    action [Stop('music'), Start('day_2')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Конфета Лисы" size 20
-                    action [Stop('music'), Start('dev_night_meet_fox')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Территория школы" size 20
-                    action [Stop('music'), Start('bunny_school_night1')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Вход в класс" size 20
-                    action [Stop('music'), Start('bunny2_school_classroom1')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Бьeм Семeна" size 20
-                    action [Stop('music'), Stop('sound'), Start('bunny_day2_semen')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Полина или Лиса" size 20
-                    action [Stop('music'), Stop('sound'), Start('bunny_day2_polina_or_fox')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Встреча с гопниками" size 20
-                    action [Stop('music'), Stop('sound'), Start('bunny_day2_gop_stop')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "На**й или Маска" size 20
-                    action [Stop('music'), Stop('sound'), Start('bunny_day2_mask_dev')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Счастливая семья" size 20
-                    action [Stop('music'), Stop('sound'), Start('bunny2_happy_family_nightmare')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Гараж" size 20
-                    action [Stop('music'), Stop('sound'), Start('bunny2_fox_garage_dev')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Ночь в комнате" size 20
-                    action [Stop('music'), Stop('sound'), Start('bunny2_night_room_anton_table')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Кошмар с Катей" size 20
-                    action [Stop('music'), Stop('sound'), Start('day2_nightmare')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "mold.FF's test" size 20
-                    action [Stop('music'), Stop('sound'), Start('mold_test')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Финал дня" size 20
-                    action [Stop('music'), Stop('sound'), Start('day_2_f')]
-            vbox:
-                text "3 день":
-                    size 20
-                    color "#FFFFFF"
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "> НАЧАЛО <" size 20
-                    action [Stop('music'), Start('d3_0')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Неделю спустя" size 20
-                    action [Stop('music'), Start('dev_day3_week')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Анкета" size 20
-                    action [Stop('music'), Start('dev_day3_anketa')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Встреча в углу" size 20
-                    action [Stop('music'), Start('dev_day3_cornermeet')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Общение с сестрой" size 20
-                    action [Stop('music'), Start('dev_d3_olyatalk')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Денди" size 20
-                    action [Stop('music'), Start('day3_goosehunt')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Звонок Полины" size 20
-                    action [Stop('music'), Start('dev_d3_polinacall')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Ночь с конфетами" size 20
-                    action [Stop('music'), Start('dev_bunny3_candyjumps')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Суефа" size 20
-                    action [Stop('music'), Start('dev_suefa')]
+                vbox:
+                    text "4 день":
+                        size 20
+                        color "#FFFFFF"
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "mold.FF's test" size 20
+                        action [Stop('music'), Stop('sound'), Start('mold_test')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "> НАЧАЛО <" size 20
+                        action [Stop('music'), Start('d4_setup')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ВОЛЬТРОН - БЯША" size 20
+                        action [Stop('music'), Stop('sound'), Start('dev_byasha')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "Спасение Кати" size 20
+                        action [Stop('music'), Stop('sound'), Start('dev_d4_save_katya')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ПОЛИЦЕЙСКИЙ УЧАСТОК" size 20
+                        action [Stop('music'), Stop('sound'), Start('dev_d4_police')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ДОМ ПОЛИНЫ" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_polhouse_begin.dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "РОМА" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_polhouse_after.dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ДОМ ПЕТРОВЫХ" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_home.dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ДВОРЕЦ ДЕДА МОРОЗА" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_palace_dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ОТКАЗ 1" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_beasts_choice_refuse')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ОТКАЗ 2" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_beasts_choice2_refuse')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ОТКАЗ 3" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_beasts_choice3_refuse')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "УГОЩЕНИЕ" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_beasts_choice_take.dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ПРОБУЖДЕНИЕ" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_wake_up.dev')]
+                    button:
+                        background "#FFFFFF20"
+                        hover_background "#FFFFFF40"
+                        ysize 30
+                        text "ТИТРЫ" size 20
+                        action [Stop('music'), Stop('sound'), Start('d4_ending_bad_needle')]
 
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Папка" size 20
-                    action [Stop('music'), Start('minigame_case_start')]
-                button:
-                    background "#FFFFFF20"
-                    hover_background "#FFFFFF40"
-                    ysize 30
-                    text "Концовка" size 20
-                    action [Stop('music'), Start('dev_day3_end_titr')]
 
 
 
@@ -803,19 +926,21 @@ init -501 screen about_me():
         vbox:
             style_group "about"
             spacing 5
-            xsize 1500
+            xsize 1400
             text _("Продюсер:  {size=+10}SAIKONO")
             text _("Сценарист:  {size=+10}Евгений Сокарев")
             text _("Писатели:  {size=+10}Евгений Сокарев, Максим Кабир")
             text _("Художник:  {size=+10}SAIKONO")
-            text _("Композиторы:  {size=+10}Владимир Булаев, NIKITA KRYUKOV, EL-METALLICO, EICHON, Никита Лагунов, _BLACKSMITH_, DVAR")
+            text _("Аутсорс 2D:  {size=+10}Вячеслав Софронов")
+            text _("Аутсорс 3D:  {size=+10}Евгений Слушев-SURAFIN")
+            text _("Композиторы:  {size=+10}Владимир Булаев, NIKITA KRYUKOV, EL-METALLICO, EICHON, Никита Лагунов, _BLACKSMITH_, DVAR, Степан Корныхин")
             text _("Звуковой дизайн:  {size=+10}N1K-O, SAIKONO,  ЕГОР АПРЕЛЬЦЕВ")
             text _("Геймдизайн:  {size=+10}Евгений Сокарев")
-            text _("Программисты:  {size=+10}RUZURA INTERACTIVE, ДАНИЛ MOLD.FF, Носочек")
+            text _("Программисты:  {size=+10}ДАНИЛ MOLD.FF, RUZURA INTERACTIVE, Носочек")
             text _("Редакторы:  {size=+10}Ольга Апальчук, KURJATEGIJA")
             text _("Корректор:  {size=+10}INSANECHRONOS")
             text _("Скриптер:  {size=+10}DETH, SAIKONO, Хромушка")
-            text _("Переводчики:  {size=+10}Aesthetic Dialectic (английский), Какихара (китайский)")
+            text _("Переводчики:  {size=+10}Aesthetic Dialectic (английский), Kakihara_MasO (китайский), Mizraim (Итальянский), Cansun Coşkun (Турецкий)")
             at for_yes_no_10
 
         vbox:
@@ -839,7 +964,6 @@ init -501 screen about_me():
             text _("{size=+10}МАРИНА  БАКИНА")
             text _("{size=+10}МИХАИЛ ГЛУШКОВСКИЙ")
             text _("{size=+10}ТАИСИЯ ТРИШИНА")
-            text _("{size=+10}ALINA RIN")
             at for_yes_no_10
 
         vbox:
@@ -911,6 +1035,7 @@ init -501 screen file_slots(title):
 
         hotspot (310,126,415,107):
             action ShowMenu("save")
+            sensitive is_save_allowed
             text _("Сохранить"):
                 xalign 0.4
                 yalign 0.6
@@ -922,6 +1047,7 @@ init -501 screen file_slots(title):
 
         hotspot (310,126,415,107):
             action ShowMenu("save")
+            sensitive is_save_allowed
             if renpy.get_screen("load"):
                 hover_sound "sounds/menu/menu-button-select-1.ogg"
                 activate_sound "sounds/menu/menu-button-click-1.ogg"
@@ -993,7 +1119,7 @@ init -501 screen file_slots(title):
         hotspot (986,821,188,88):
             hover_sound "sounds/menu/menu-button-select-1.ogg"
             activate_sound "sounds/menu/menu-button-click-1.ogg"
-            action FilePageNext(10)
+            action FilePageNext(999)
             at filepic_but2
 
 
@@ -1073,8 +1199,42 @@ init -501 screen preferences():
             xpos 1000
             spacing 50
 
-            text _("Громкость"):
-                size 55
+            hbox:
+                xsize 600
+                ysize 75
+
+                text _("Громкость"):
+                    size 55
+
+                hbox:
+                    xalign 1.
+                    spacing 50
+
+                    text _("По умолчанию") yalign 1.
+
+                    imagebutton:
+                        idle "interface/preferences/button/00.png"
+                        action SetMixer("music", 0.795), SetMixer("sfx", 0.795), SetMixer("voice", 1.0)
+                        at transform:
+                            zoom .75
+                            on hover:
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset renpy.random.randint(-5,5) yoffset renpy.random.randint(-5,5)
+                                linear 0.01 xoffset 0 yoffset 0
 
             hbox:
                 spacing 50
@@ -1844,12 +2004,13 @@ label forced_pause_start(delay):
     show screen forced_pause_timer(delay)
     return
 
-
 label forced_pause_loop:
     while renpy.get_screen("forced_pause_timer"):
         $ renpy.pause(.1, hard=True)
     return
 
+init -501 screen forced_timer(delay):
+    timer delay action Return()
 
 
 init -501 screen for_click_to_c():
@@ -1860,5 +2021,4 @@ init -501 screen for_click_to_c():
 init -501 screen memory_ramka():
     zorder 2
     add "ramka" at qm_elements
-
 # Decompiled by unrpyc: https://github.com/CensoredUsername/unrpyc

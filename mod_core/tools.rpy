@@ -1,7 +1,7 @@
 init -510 python:
     class ModTool:
 
-        def __init__(self, activate, deactivate, id, name, author, version, icon, author_link = None):
+        def __init__(self, activate, deactivate, id, name, author, version, icon, author_link = None, label_callback = None):
             self.activate = activate
             self.deactivate = deactivate
             self.id = id
@@ -10,6 +10,7 @@ init -510 python:
             self.version = version
             self.icon = icon
             self.author_link = author_link
+            self.label_callback = label_callback
 
             if id in persistent.mod_tools_activated:
                 self.activated = persistent.mod_tools_activated[id]
@@ -22,6 +23,11 @@ init -510 python:
         
         def get_activated(self):
             return self.activated
+
+        def call_label_callback(self, label, context):
+            if not (self.label_callback is None):
+                if self.activated:
+                    self.label_callback(label, context);
 
         def on(self):
             self.activated = True
@@ -44,6 +50,12 @@ init -510 python:
         def __init__(self):
             self.tools = {}
             self.inited = False
+            config.label_callback = self._label_callback
+
+        def _label_callback(self, label, context):
+            if self.inited:
+                for tool in self.tools:
+                    self.tools[tool].call_label_callback(label, context);
 
         def register(self, tool):
             self.tools.update({ tool.id: tool })
